@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="keywords" content="Editor.md,editor,Markdown Editor,Markdown" />
+    <meta name="description" content="Skills Network Author IDE" />
+    <title>Skills Network Editor</title>
+    <link rel="stylesheet" href="editormd/examples/css/style.css?version=2.0.8" />
+    <link rel="stylesheet" href="editormd/css/editormd.css?version=2.0.8" />
+    <link rel="stylesheet" href="public/css/custom.css?version=2.0.8" />
+    <link rel="shortcut icon" href="public/images/SN_favicon.png" type="image/x-icon" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="public/js/comms.js?version=2.0.8"></script>
+    <script src="//unpkg.com/alpinejs"></script>
+</head>
+
+<body>
+    <div id="layout">
+    <div id="test-editormd">
+        <textarea style="display:none;">&lt;img src&#x3D;&quot;https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/SN_web_lightmode.png&quot; width&#x3D;&quot;300&quot;&gt;
+
+::page{title&#x3D;&quot;Hands-on Lab: Stored Procedures in MySQL using phpMyAdmin&quot;}
+
+**Estimated time needed:** 20 minutes
+
+In this lab, you will learn how to create tables and load data in the MySQL database service using the phpMyAdmin graphical user interface (GUI) tool.
+
+::page{title&#x3D;&quot;&quot;}
+
+## Software Used in this Lab
+
+In this lab, you will use &lt;a href&#x3D;&quot;https://www.mysql.com/?utm_medium&#x3D;Exinfluencer&amp;utm_source&#x3D;Exinfluencer&amp;utm_content&#x3D;000026UJ&amp;utm_term&#x3D;10006555&amp;utm_id&#x3D;NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2021-01-01&quot;&gt;MySQL&lt;/a&gt;. MySQL is a Relational Database Management System (RDBMS) designed to efficiently store, manipulate, and retrieve data.
+
+&lt;img src&#x3D;&quot;https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20MySQL%20using%20phpMyAdmin/images/mysql.png&quot; width&#x3D;&quot;100&quot; height&#x3D;&quot;100&quot;&gt;
+&lt;p&gt;&lt;/p&gt;
+
+To complete this lab you will utilize MySQL relational database service available as part of IBM Skills Network Labs (SN Labs) Cloud IDE. SN Labs is a virtual lab environment used in this course.
+
+::page{title&#x3D;&quot;&quot;}
+
+## Database Used in this Lab
+
+**Mysql_learners** database has been used in this lab.
+
+## Data Used in this Lab
+
+The data used in this lab is internal data. You will be working on the **PETSALE** table.
+
+![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/Labs_Coursera_V5/labs/Lab%20-%20Stored%20Procedures/images/PETSALE_table_v2.png)
+
+This lab requires you to have the PETSALE table populated with sample data on mysql phpadmin interface. You might have created and populated a PETSALE table in a previous lab. But for this lab, it is recommended you download the &#x60;PETSALE-CREATE-v2.sql&#x60; script below, upload it to phpadmin console and run it. The script will create a new PETSALE table dropping any previous PETSALE table if exists, and will populate it with the required sample data.
+
+*   [PETSALE-CREATE-v2.sql](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/PETSALE-CREATE-v2.sql)
+
+## Objectives
+
+After completing this lab, you will be able to:
+
+*   Create stored procedures
+*   Execute stored procedures
+
+&lt;br&gt;
+
+::page{title&#x3D;&quot;Exercise 1&quot;}
+
+In this exercise, you will create and execute a stored procedure to read data from a table on mysql phpadmin using SQL.
+
+1.  Make sure you have created and populated the **PETSALE** table following the steps in the **&quot;Data Used in this Lab&quot;** section of this lab.
+
+    ![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/Labs_Coursera_V5/labs/Lab%20-%20Stored%20Procedures/images/PETSALE_table_v2.png)
+
+2.  *   You will create a stored procedure routine named **RETRIEVE_ALL**.
+    *   This **RETRIEVE_ALL** routine will contain an SQL query to retrieve all the records from the PETSALE table, so you don&#x27;t need to write the 
+    same query over and over again. You just call the stored procedure routine to execute the query everytime.
+    *   To create the stored procedure routine, copy the code below and paste it to the textarea of the **SQL** page. Click **Go**.
+
+     &lt;p&gt;
+
+ &#x60;&#x60;&#x60;
+ DELIMITER //
+
+ CREATE PROCEDURE RETRIEVE_ALL()
+
+ BEGIN
+   
+    SELECT *  FROM PETSALE;
+    
+    
+ END //
+
+ DELIMITER ; 
+ &#x60;&#x60;&#x60;
+
+ ![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc1.png)
+
+3.  To call the RETRIEVE_ALL routine, open another **SQL** tab by clicking **Open in new Tab**
+ 
+
+ ![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc2.png)
+
+ Delete the default line which appears so that you will get a blank window.
+
+ copy the code below and paste it to the textarea of the **SQL** page. Click **Go**.
+
+ &#x60;&#x60;&#x60;
+    CALL RETRIEVE_ALL;  
+ &#x60;&#x60;&#x60;
+
+ ![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc3.png)
+
+4. You can view the created stored procedure routine RETRIEVE_ALL. On the left panel, expand the mysql option. Click on **Procedures** then click on the **RETRIEVE_ALL**  and view the procedure.
+
+  ![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/images/proc4.1.png)
+
+After clicking on the Procedure **Retrieve_All**, you can view the procedure definition and execute it by clicking on **GO**.
+
+  ![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/images/proc4.2.png)
+
+5.  If you wish to drop the stored procedure routine RETRIEVE_ALL, copy the code below and paste it to the textarea of the **SQL** page. Click **Go**.
+
+ &#x60;&#x60;&#x60;
+    DROP PROCEDURE RETRIEVE_ALL;
+
+    CALL RETRIEVE_ALL;
+ &#x60;&#x60;&#x60;
+
+ ![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc5.png)
+
+    
+
+&lt;br&gt;
+
+::page{title&#x3D;&quot;Exercise 2&quot;}
+
+In this exercise, you will create and execute a stored procedure to write/modify data in a table on Db2 using SQL.
+
+1.  Make sure you have created and populated the **PETSALE** table following the steps in the **&quot;Data Used in this Lab&quot;** section of this lab.
+
+    ![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/Labs_Coursera_V5/labs/Lab%20-%20Stored%20Procedures/images/PETSALE_table_v2.png)
+
+2.  *   You will create a stored procedure routine named **UPDATE_SALEPRICE** with parameters **Animal_ID** and **Animal_Health**.
+    *   This **UPDATE_SALEPRICE** routine will contain SQL queries to update the sale price of the animals in the PETSALE table depending on their  
+    health conditions, **BAD** or **WORSE**.
+    *   This procedure routine will take animal ID and health conditon as parameters which will be used to update the sale price of animal in the  
+    PETSALE table by an amount depending on their health condition. Suppose -
+        *   For animal with ID XX having BAD health condition, the sale price will be reduced further by 25%.
+        *   For animal with ID YY having WORSE health condition, the sale price will be reduced further by 50%.
+        *   For animal with ID ZZ having other health condition, the sale price won&#x27;t change.
+
+*   To create the stored procedure routine, copy the code below and paste it to the textarea of the **SQL** page. Click **Go**.
+
+     &lt;p&gt;
+
+ &#x60;&#x60;&#x60;
+ DELIMITER @
+ CREATE PROCEDURE UPDATE_SALEPRICE ( 
+    IN Animal_ID INTEGER, IN Animal_Health VARCHAR(5) )     
+ BEGIN 
+
+    IF Animal_Health &#x3D; &#x27;BAD&#x27; THEN                           
+        UPDATE PETSALE
+        SET SALEPRICE &#x3D; SALEPRICE - (SALEPRICE * 0.25)
+        WHERE ID &#x3D; Animal_ID;
+    
+    ELSEIF Animal_Health &#x3D; &#x27;WORSE&#x27; THEN
+        UPDATE PETSALE
+        SET SALEPRICE &#x3D; SALEPRICE - (SALEPRICE * 0.5)
+        WHERE ID &#x3D; Animal_ID;
+        
+    ELSE
+        UPDATE PETSALE
+        SET SALEPRICE &#x3D; SALEPRICE
+        WHERE ID &#x3D; Animal_ID;
+
+    END IF;                                                 
+    
+ END @
+
+ DELIMITER ;
+              
+ &#x60;&#x60;&#x60;
+
+ ![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc6.png)
+
+3.  Let&#x27;s call the UPDATE_SALEPRICE routine. We want to update the sale price of animal with ID **1** having **BAD** health condition in the  
+ PETSALE table. open another **SQL** tab by clicking **Open in new Tab**
+ 
+
+ ![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc2.png)
+
+ Delete the default line which appears so that you will get a blank window.
+
+ copy the code below and paste it to the textarea of the **SQL** page. Click **Go**.
+
+ &gt; Note if you have dropped RETREIVE_ALL procedure rerun the creation script of that procedure before executing these lines.
+
+ &#x60;&#x60;&#x60;
+    CALL RETRIEVE_ALL;
+
+    CALL UPDATE_SALEPRICE(1, &#x27;BAD&#x27;);       
+
+    CALL RETRIEVE_ALL;
+ &#x60;&#x60;&#x60;
+
+ ![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc7.png)
+
+4.  Let&#x27;s call the UPDATE_SALEPRICE routine once again. We want to update the sale price of animal with ID **3** having **WORSE** health condition  
+ in the PETSALE table. copy the code below and paste it to the textarea of the **SQL** page. Click **Go**. You will have all the records retrieved 
+ from the PETSALE table.
+
+ &#x60;&#x60;&#x60;
+    CALL RETRIEVE_ALL;
+
+    CALL UPDATE_SALEPRICE(3, &#x27;WORSE&#x27;);     
+
+    CALL RETRIEVE_ALL;
+ &#x60;&#x60;&#x60;
+
+ ![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc8.png)
+
+     
+
+5. You can view the created stored procedure routine UPDATE_SALEPRICE. Click on the **Routines**  and view the procedure.
+
+  ![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc10.png)
+
+6. If you wish to drop the stored procedure routine UPDATE_SALEPRICE, copy the code below and paste it to the textarea of the **SQL** page. Click  
+ **Go**.
+
+ &#x60;&#x60;&#x60;
+   DROP PROCEDURE UPDATE_SALEPRICE;
+
+   CALL UPDATE_SALEPRICE;
+ &#x60;&#x60;&#x60;
+
+ ![image](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc11.png)
+
+     
+
+&lt;br&gt;
+
+&lt;h3&gt; Congratulations! You have completed this lab, and you are ready for the next topic. &lt;h3/&gt;
+
+&lt;br&gt;
+
+::page{title&#x3D;&quot;Author(s)&quot;}
+
+[Lakshmi Holla](https://www.linkedin.com/in/lakshmi-holla-b39062149/?utm_medium&#x3D;Exinfluencer&amp;utm_source&#x3D;Exinfluencer&amp;utm_content&#x3D;000026UJ&amp;utm_term&#x3D;10006555&amp;utm_id&#x3D;NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork22-2022-01-01) 
+
+[Malika Singla](https://www.linkedin.com/in/malika-goyal-04798622/?utm_medium&#x3D;Exinfluencer&amp;utm_source&#x3D;Exinfluencer&amp;utm_content&#x3D;000026UJ&amp;utm_term&#x3D;10006555&amp;utm_id&#x3D;NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork22-2022-01-01)
+
+## Changelog
+
+| Date       | Version | Changed by | Change Description                   |
+| ---------- | ------- | ---------- | ------------------------------------ |
+| 2021-08-09 | 0.2  | Sathya Priya | Updated HTML tags and SQL link      |
+| 2021-11-01 | 0.1  | Lakshmi Holla, Malika Singla | Initial Version       |
+
+## &lt;h3 align&#x3D;&quot;center&quot;&gt; © IBM Corporation 2021. All rights reserved. &lt;h3/&gt;
+
+</textarea>
+    </div>
+</div>
+
+<script src="editormd/examples/js/jquery.min.js"></script>
+<script src="editormd/editormd.js?version=2.0.8"></script>
+
+<script src="editormd/languages/en.js"></script>
+
+<script src="public/js/common.js?version=2.0.8"></script>
+<script src="public/js/render.js?version=2.0.8"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+        let token = findGetParameter("token");
+
+        let LABS_BASE_URL = 'https://labs.cognitiveclass.ai';
+        let asset_library_prefix_url = 'https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork';
+        let tool_type = "theia";
+        let projectId = "";
+        let filename = `labs/MySQL/week6/storedproc.md`;
+        try {
+            let projectIdStored = false
+            let project = JSON.parse(localStorage.getItem("sn-project"))
+            if (project != null) {
+                if (projectId in project) {
+                    projectIdStored = true
+                    if (!(filename in project[projectId])) {
+                        project[projectId][filename] = {}
+                    }
+                }
+            }
+            if (!projectIdStored) {
+                project = {}
+                project[projectId] = {}
+                project[projectId][filename] = {}
+            }
+            window.localStorage.setItem("sn-project", JSON.stringify(project))
+        }
+        catch (e) {
+            console.log(e)
+        }
+
+        var authorEditor = editormd("test-editormd", "2.0.8", {
+
+            tool_type,
+            projectId,
+            filename,
+
+            width: "100%",
+            //height: "100%",
+            autoHeight: true,
+
+            // mode: 'markdown',
+
+            theme: "dark",
+            previewTheme: "dark",
+            editorTheme: "pastel-on-dark",
+
+            readOnly: true,
+
+            pluginPath: 'plugins/',
+
+
+            syncScrolling: false,
+
+            htmlDecode: 'img',
+
+            path: 'editormd/lib/',
+            watch: false,
+
+            // markdown,
+            toolbar: false,
+
+            atLink: false,
+            toc: true,
+            tocm: true,
+            tocDropdown: false,
+            tocTitle: "Table of Contents For your lab!",
+
+            tex: true,
+            flowChart: true,
+            sequenceDiagram: true,
+            codeFold: true, // Doesn't do anything?
+            taskList: true,
+            emoji: true,
+
+            saveMarkdownToTextarea: true,
+
+            onresize: function () {
+                $("html,body").css("overflow", "hidden");
+
+                this.preview.css({
+                    width: $(window).width(),
+                    height: $(window).height()
+                })
+
+                adjustProgressBarWidth()
+            },
+            fixCodeBlocks: function () {
+                adjustCodeBlocks(this);
+            },
+            onload: function () {
+                $("[type=\"file\"]").bind("change", function () {
+                    alert($(this).val());
+                    authorEditor.cm.replaceSelection($(this).val());
+                    console.log($(this).val(), authorEditor);
+                });
+
+                this.fullscreen();
+                this.previewing();
+
+                setPreviewWatchToolbar(this);
+
+                if (tool_type != "instructional-lab") {
+                    fixCustomPlugins(this);
+                }
+                setAssetLibraryPrefixUrl(asset_library_prefix_url);
+                //comms with UI
+                setParentUrl(LABS_BASE_URL);
+                establishCommsWithUI(this);
+                //let the UI know that the author-ide has loaded
+                requestToUI({ type: "frame_loaded" });
+            }
+        });
+    });
+</script>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    </script>
+
+</html>
